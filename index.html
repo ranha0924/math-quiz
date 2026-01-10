@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수학 공식 암기 퀴즈</title>
+    <!-- 외부 스타일시트 연결 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 메인 컨테이너 -->
+    <div class="container">
+
+        <!-- ========== 학년 선택 화면 ========== -->
+        <div id="selection-screen">
+            <h1>수학 공식 암기 퀴즈</h1>
+            <p class="subtitle">학년을 선택하세요</p>
+
+            <!-- 학년 선택 버튼 -->
+            <div class="grade-selection">
+                <button class="grade-btn high1" onclick="startQuiz('high1')">고등학교 1학년</button>
+                <button class="grade-btn high2" onclick="startQuiz('high2')">고등학교 2학년</button>
+                <button class="grade-btn high3" onclick="startQuiz('high3')">고등학교 3학년</button>
+            </div>
+        </div>
+
+        <!-- ========== 퀴즈 화면 ========== -->
+        <div id="quiz-screen" class="quiz-container">
+            <!-- 상단: 돌아가기 버튼 + 진행률 -->
+            <div class="quiz-header">
+                <button class="back-btn" onclick="goBack()">← 돌아가기</button>
+                <span class="progress" id="progress">1 / 5</span>
+            </div>
+
+            <!-- 현재 학년 표시 -->
+            <p class="grade-title" id="grade-title">고등학교 1학년</p>
+
+            <!-- 문제 박스 -->
+            <div class="question-box">
+                <p class="question-title" id="question-title">곱셈공식</p>
+                <p class="question-text" id="question-text">(a + b)² = ?</p>
+            </div>
+
+            <!-- 객관식 선택지 (JS에서 동적 생성) -->
+            <div class="options" id="options"></div>
+        </div>
+
+        <!-- ========== 결과 화면 ========== -->
+        <div id="result-screen" class="result-container">
+            <p class="result-score" id="result-score">80%</p>
+            <p class="result-text" id="result-text">5문제 중 4문제 정답!</p>
+            <p class="result-message" id="result-message">잘했어요!</p>
+            <button class="restart-btn" onclick="goBack()">다시 시작하기</button>
+        </div>
+
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
