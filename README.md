@@ -2,7 +2,7 @@
 
 > **고등학생들을 위한 수학공식 암기 사이트**  
 
--  **Homepage**: [bug-crusher](https://math-quiz-1lmxndo85-ranha0924s-projects.vercel.app/)
+-  **Homepage**: [math-quiz](https://math-quiz-1lmxndo85-ranha0924s-projects.vercel.app/)
 
 ---
 
