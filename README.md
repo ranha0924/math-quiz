@@ -14,8 +14,7 @@ math-quiz는 고등학생들을 위한 수학공식 암기 사이트입니다! �
 
 ### 1️ **학년 선택화면**
 
-![Uploading 스크린샷 2026-02-19 135129.png…]()
-
+<img width="628" height="582" alt="스크린샷 2026-02-19 135129" src="https://github.com/user-attachments/assets/f328dcb2-1811-4c97-8df2-c1a101eaf404" />
 
 ### 2️ **문제 화면**
 
