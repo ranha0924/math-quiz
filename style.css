@@ -25,14 +25,15 @@ body::before {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
-/* 홈화면 - 손으로 뜬 종이 질감 (미세 결 + 은은한 섬유 얼룩) */
+/* 홈화면 - 구겨진 종이 질감 (주름 명암 + 미세 결) */
 body.home {
     background-color: #EFE5CE;
     background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170'%3E%3Cfilter id='pg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.16' intercept='0.84'/%3E%3CfeFuncG type='linear' slope='0.16' intercept='0.84'/%3E%3CfeFuncB type='linear' slope='0.16' intercept='0.84'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pg)'/%3E%3C/svg%3E"),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='480'%3E%3Cfilter id='pm'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.13' intercept='0.87'/%3E%3CfeFuncG type='linear' slope='0.13' intercept='0.87'/%3E%3CfeFuncB type='linear' slope='0.13' intercept='0.87'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pm)'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170'%3E%3Cfilter id='pg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.14' intercept='0.86'/%3E%3CfeFuncG type='linear' slope='0.14' intercept='0.86'/%3E%3CfeFuncB type='linear' slope='0.14' intercept='0.86'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pg)'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='700'%3E%3Cfilter id='cr'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.013' numOctaves='4' seed='6' result='n'/%3E%3CfeDiffuseLighting in='n' lighting-color='%23ffffff' surfaceScale='2.6' diffuseConstant='1' result='l'%3E%3CfeDistantLight azimuth='235' elevation='56'/%3E%3C/feDiffuseLighting%3E%3CfeColorMatrix in='l' type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.6' intercept='0.42'/%3E%3CfeFuncG type='linear' slope='0.6' intercept='0.42'/%3E%3CfeFuncB type='linear' slope='0.6' intercept='0.42'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23cr)'/%3E%3C/svg%3E"),
         linear-gradient(165deg, #F4EDDD 0%, #ECE1CB 100%);
-    background-size: 170px 170px, 480px 480px, cover;
+    background-size: 170px 170px, cover, cover;
+    background-repeat: repeat, no-repeat, no-repeat;
     background-blend-mode: multiply, multiply, normal;
 }
 body.home::before { display: none; }   /* 기본 미세 노이즈는 끔 (질감 이중 적용 방지) */
