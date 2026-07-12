@@ -214,4 +214,29 @@ footer { color: var(--muted); font-size: 13px; padding: 30px 0; border-top: 1px 
 .question-text .katex { font-size: 1.05em; }
 .option-btn .katex { font-size: 1em; }
 
+/* ============================================================
+   개념 정리 페이지
+   ============================================================ */
+.c-part { margin-top: 46px; }
+.c-part:first-of-type { margin-top: 30px; }
+.c-part-title { font-family: var(--serif); font-size: 26px; font-weight: 800; display: flex; align-items: center; gap: 14px;
+    padding-bottom: 14px; border-bottom: 2px solid var(--ink); margin-bottom: 24px; }
+.c-part-title span { font-size: 14px; font-weight: 700; color: #fff; background: var(--accent); border-radius: 8px; padding: 3px 11px; font-family: Georgia, serif; }
+.concept-card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 26px 28px; margin-bottom: 18px; box-shadow: 0 6px 18px rgba(46, 42, 37, 0.05); }
+.c-kicker { font-family: var(--serif); font-size: 20px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.c-num { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; color: var(--accent); background: var(--accent-soft); padding: 4px 11px; border-radius: 999px; letter-spacing: 0.3px; }
+.c-formula { background: #F6EFDF; border-radius: 10px; padding: 14px 16px; font-size: 15.5px; line-height: 1.75; color: var(--ink); margin-bottom: 14px; border-left: 3px solid var(--accent); }
+.c-list { list-style: none; padding: 0; }
+.c-list li { position: relative; padding-left: 20px; margin-bottom: 10px; line-height: 1.75; font-size: 15px; }
+.c-list li::before { content: ''; position: absolute; left: 3px; top: 11px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.c-note { font-size: 13.5px; color: var(--muted); margin-top: 8px; line-height: 1.6; }
+.c-table-wrap { overflow-x: auto; margin: 8px 0 14px; }
+.c-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 500px; }
+.c-table th, .c-table td { border: 1px solid var(--line); padding: 10px 12px; text-align: center; line-height: 1.5; }
+.c-table thead th { background: var(--accent-soft); color: var(--ink); font-weight: 700; }
+.c-table tbody td:first-child { background: #F6EFDF; font-weight: 600; text-align: left; white-space: nowrap; }
+.c-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.c-links a { font-size: 13px; font-weight: 700; color: var(--accent); text-decoration: none; border: 1px solid var(--line-2); border-radius: 999px; padding: 7px 15px; transition: all .15s ease; }
+.c-links a:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
 .hidden { display: none !important; }
