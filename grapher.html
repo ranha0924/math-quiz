@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이차함수 그래프 실험실</title>
+<style>
+    /* ===== 기본 리셋 ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --bg: #eef2f8;
+        --card: #ffffff;
+        --ink: #1e293b;
+        --muted: #64748b;
+        --line: #e2e8f0;
+        --accent: #4f46e5;      /* 포물선 */
+        --vertex: #e11d48;      /* 꼭짓점 */
+        --root: #0891b2;        /* 근(x절편) */
+        --yint: #16a34a;        /* y절편 */
+        --axis-sym: #a855f7;    /* 대칭축 */
+        --pos: #16a34a; --pos-bg: #dcfce7;
+        --zero: #d97706; --zero-bg: #fef3c7;
+        --neg: #e11d48; --neg-bg: #ffe4e6;
+    }
+
+    body {
+        font-family: system-ui, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+        background: linear-gradient(160deg, #eef2f8 0%, #e4e9f5 100%);
+        color: var(--ink);
+        min-height: 100vh;
+        padding: 24px 16px 48px;
+    }
+
+    .wrap { max-width: 1040px; margin: 0 auto; }
+
+    /* ===== 헤더 ===== */
+    header { text-align: center; margin-bottom: 24px; }
+    header h1 { font-size: 26px; letter-spacing: -0.5px; }
+    header .tag {
+        display: inline-block; margin-bottom: 10px; padding: 4px 12px;
+        background: var(--accent); color: #fff; border-radius: 999px;
+        font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+    }
+    header p { color: var(--muted); margin-top: 8px; font-size: 14px; }
+
+    /* ===== 레이아웃 ===== */
+    .layout { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    @media (min-width: 860px) {
+        .layout { grid-template-columns: 1.15fr 1fr; align-items: start; }
+    }
+
+    .card {
+        background: var(--card); border-radius: 18px; padding: 20px;
+        box-shadow: 0 8px 30px rgba(30, 41, 59, 0.08);
+    }
+    .card h2 {
+        font-size: 14px; color: var(--muted); font-weight: 700;
+        margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.6px;
+    }
+
+    /* ===== 그래프 ===== */
+    #graph {
+        width: 100%; aspect-ratio: 1 / 1; display: block;
+        border-radius: 12px; background: #fbfcfe;
+    }
+    .legend {
+        display: flex; flex-wrap: wrap; gap: 12px 16px;
+        margin-top: 14px; font-size: 12.5px; color: var(--muted);
+    }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dash { width: 14px; height: 0; border-top: 2px dashed var(--axis-sym); display: inline-block; }
+
+    /* ===== 슬라이더 ===== */
+    .slider-row { margin-bottom: 18px; }
+    .slider-row:last-child { margin-bottom: 0; }
+    .slider-head {
+        display: flex; justify-content: space-between; align-items: baseline;
+        margin-bottom: 8px;
+    }
+    .slider-head label { font-weight: 700; font-size: 16px; }
+    .slider-head .coef-name { color: var(--accent); }
+    .chip {
+        font-variant-numeric: tabular-nums; font-weight: 700;
+        background: #eef2ff; color: var(--accent);
+        padding: 3px 12px; border-radius: 999px; font-size: 15px; min-width: 58px; text-align: center;
+    }
+    input[type=range] { width: 100%; accent-color: var(--accent); height: 22px; cursor: pointer; }
+
+    .presets { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .presets button {
+        border: 1px solid var(--line); background: #f8fafc; color: var(--ink);
+        padding: 8px 12px; border-radius: 10px; cursor: pointer; font-size: 13px;
+        font-weight: 600; transition: all .15s ease;
+    }
+    .presets button:hover { border-color: var(--accent); color: var(--accent); background: #eef2ff; }
+
+    /* ===== 정보 패널 ===== */
+    .info-card { margin-top: 20px; }
+    .formula {
+        font-family: 'Cambria Math', 'Times New Roman', Georgia, serif;
+        font-size: 20px; background: #f8fafc; border-radius: 10px;
+        padding: 12px 16px; margin-bottom: 8px; overflow-x: auto; white-space: nowrap;
+    }
+    .formula .lbl { font-family: system-ui, sans-serif; font-size: 12px; color: var(--muted); display: block; margin-bottom: 2px; }
+
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+    .stat {
+        background: #f8fafc; border-radius: 10px; padding: 10px 12px;
+    }
+    .stat .k { font-size: 11.5px; color: var(--muted); font-weight: 700; }
+    .stat .v { font-size: 16px; font-weight: 700; margin-top: 3px; font-variant-numeric: tabular-nums; }
+
+    .disc {
+        margin-top: 14px; padding: 14px 16px; border-radius: 12px;
+        display: flex; align-items: center; gap: 14px;
+    }
+    .disc.pos { background: var(--pos-bg); }
+    .disc.zero { background: var(--zero-bg); }
+    .disc.neg { background: var(--neg-bg); }
+    .disc .big { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .disc.pos .big, .disc.pos .desc b { color: var(--pos); }
+    .disc.zero .big, .disc.zero .desc b { color: var(--zero); }
+    .disc.neg .big, .disc.neg .desc b { color: var(--neg); }
+    .disc .desc { font-size: 13.5px; line-height: 1.5; }
+
+    .warn { margin-top: 14px; padding: 12px 16px; border-radius: 10px;
+        background: var(--zero-bg); color: var(--zero); font-weight: 700; font-size: 14px; display: none; }
+
+    footer { text-align: center; color: var(--muted); font-size: 12.5px; margin-top: 28px; line-height: 1.7; }
+    sup { font-size: 0.7em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+    <header>
+        <span class="tag">이차함수 사이트 · 프로토타입</span>
+        <h1>이차함수 그래프 실험실</h1>
+        <p>슬라이더로 <b>a, b, c</b>를 움직이며 <b>y = ax² + bx + c</b>의 그래프가 어떻게 변하는지 직접 확인해 보세요.</p>
+    </header>
+
+    <div class="layout">
+        <!-- 왼쪽: 그래프 -->
+        <div class="card">
+            <h2>그래프</h2>
+            <canvas id="graph"></canvas>
+            <div class="legend">
+                <span><i class="dot" style="background:var(--accent)"></i>포물선</span>
+                <span><i class="dot" style="background:var(--vertex)"></i>꼭짓점</span>
+                <span><i class="dot" style="background:var(--root)"></i>x절편(실근)</span>
+                <span><i class="dot" style="background:var(--yint)"></i>y절편</span>
+                <span><i class="dash"></i>대칭축</span>
+            </div>
+        </div>
+
+        <!-- 오른쪽: 컨트롤 + 정보 -->
+        <div>
+            <div class="card">
+                <h2>계수 조절</h2>
+                <div class="slider-row">
+                    <div class="slider-head">
+                        <label><span class="coef-name">a</span> · 이차항 계수</label>
+                        <span class="chip" id="chip-a">1</span>
+                    </div>
+                    <input type="range" id="a" min="-4" max="4" step="0.5" value="1">
+                </div>
+                <div class="slider-row">
+                    <div class="slider-head">
+                        <label><span class="coef-name">b</span> · 일차항 계수</label>
+                        <span class="chip" id="chip-b">-2</span>
+                    </div>
+                    <input type="range" id="b" min="-8" max="8" step="0.5" value="-2">
+                </div>
+                <div class="slider-row">
+                    <div class="slider-head">
+                        <label><span class="coef-name">c</span> · 상수항</label>
+                        <span class="chip" id="chip-c">-3</span>
+                    </div>
+                    <input type="range" id="c" min="-8" max="8" step="0.5" value="-3">
+                </div>
+
+                <div class="presets">
+                    <button data-a="1" data-b="-2" data-c="-3">D&gt;0 · 두 실근</button>
+                    <button data-a="1" data-b="-2" data-c="1">D=0 · 중근</button>
+                    <button data-a="1" data-b="0" data-c="2">D&lt;0 · 허근</button>
+                    <button data-a="-1" data-b="2" data-c="1">위로 볼록</button>
+                </div>
+            </div>
+
+            <div class="card info-card">
+                <h2>실시간 분석</h2>
+                <div class="formula"><span class="lbl">일반형</span><span id="f-general">y = x² − 2x − 3</span></div>
+                <div class="formula"><span class="lbl">표준형 (완전제곱)</span><span id="f-standard">y = (x − 1)² − 4</span></div>
+
+                <div class="disc pos" id="disc">
+                    <div class="big" id="disc-val">D = 16</div>
+                    <div class="desc" id="disc-desc"></div>
+                </div>
+
+                <div class="stat-grid">
+                    <div class="stat"><div class="k">꼭짓점</div><div class="v" id="s-vertex">(1, −4)</div></div>
+                    <div class="stat"><div class="k">대칭축</div><div class="v" id="s-axis">x = 1</div></div>
+                    <div class="stat"><div class="k" id="s-ext-k">최솟값</div><div class="v" id="s-ext">−4</div></div>
+                    <div class="stat"><div class="k">볼록</div><div class="v" id="s-convex">아래로 볼록</div></div>
+                    <div class="stat"><div class="k">x절편 (실근)</div><div class="v" id="s-roots">−1, 3</div></div>
+                    <div class="stat"><div class="k">y절편</div><div class="v" id="s-yint">−3</div></div>
+                </div>
+
+                <div class="warn" id="warn">⚠ a = 0 이면 이차함수가 아니에요 (직선이 됩니다).</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        다음 단계 아이디어 · 직선 y=mx+n 추가하고 교점을 판별식으로 연결 · 구간 α≤x≤β 최대·최소 · 이차부등식 해 영역 색칠<br>
+        이차함수 사이트 개편 프로토타입
+    </footer>
+</div>
+
+<script>
+/* ============================================================
+   이차함수 그래프 실험실 - 메인 스크립트
+   ============================================================ */
+const canvas = document.getElementById('graph');
+const ctx = canvas.getContext('2d');
+
+/* 계수 상태 */
+let a = 1, b = -2, c = -3;
+
+const VIEW = 11;           // 화면 중심에서 가장자리까지 보이는 단위 수
+let W, H, cx, cy, ppu;     // 캔버스 크기 / 원점 픽셀좌표 / 단위당 픽셀
+
+/* ----- 숫자 포맷: 소수 2자리 반올림 후 정리 ----- */
+function fmt(n) {
+    // 부호에 무관하게 0에서 먼 쪽으로 반올림 (음수 .5 처리 일관성)
+    const r = Math.sign(n) * Math.round(Math.abs(n) * 100) / 100;
+    if (Object.is(r, -0) || r === 0) return '0';
+    return String(r);
+}
+/* 음수 부호를 보기 좋은 − 로 */
+const minus = s => String(s).replace('-', '−');
+
+/* ----- 캔버스 크기(레티나 대응) ----- */
+function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    const size = canvas.clientWidth;
+    W = size; H = size;
+    canvas.width = size * dpr;
+    canvas.height = size * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cx = W / 2; cy = H / 2;
+    ppu = (Math.min(W, H) / 2) / VIEW;
+    draw();
+}
+
+/* 월드 좌표 → 픽셀 좌표 */
+const wx = x => cx + x * ppu;
+const wy = y => cy - y * ppu;
+
+/* ----- 그리드 & 축 ----- */
+function drawGrid() {
+    const xmin = Math.ceil(-cx / ppu), xmax = Math.floor((W - cx) / ppu);
+    const ymin = Math.ceil(-(H - cy) / ppu), ymax = Math.floor(cy / ppu);
+
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = '#e2e8f0';
+    for (let i = xmin; i <= xmax; i++) {
+        ctx.beginPath(); ctx.moveTo(wx(i), 0); ctx.lineTo(wx(i), H); ctx.stroke();
+    }
+    for (let j = ymin; j <= ymax; j++) {
+        ctx.beginPath(); ctx.moveTo(0, wy(j)); ctx.lineTo(W, wy(j)); ctx.stroke();
+    }
+
+    /* 좌표축 */
+    ctx.lineWidth = 1.6; ctx.strokeStyle = '#94a3b8';
+    ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(W, cy); ctx.stroke();   // x축
+    ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();   // y축
+
+    /* 눈금 숫자 (2칸마다) */
+    ctx.fillStyle = '#64748b'; ctx.font = '11px system-ui';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    for (let i = xmin; i <= xmax; i++) {
+        if (i !== 0 && i % 2 === 0) ctx.fillText(minus(i), wx(i), cy + 5);
+    }
+    ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    for (let j = ymin; j <= ymax; j++) {
+        if (j !== 0 && j % 2 === 0) ctx.fillText(minus(j), cx - 6, wy(j));
+    }
+    /* 축 이름 */
+    ctx.fillStyle = '#94a3b8'; ctx.font = 'italic 13px Georgia';
+    ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+    ctx.fillText('x', W - 6, cy + 5);
+    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    ctx.fillText('y', cx + 6, 4);
+}
+
+/* ----- 포물선 ----- */
+function drawCurve() {
+    ctx.lineWidth = 3; ctx.strokeStyle = '#4f46e5';
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    let started = false;
+    for (let px = 0; px <= W; px++) {
+        const x = (px - cx) / ppu;
+        const y = a * x * x + b * x + c;
+        const py = wy(y);
+        if (!started) { ctx.moveTo(px, py); started = true; }
+        else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+}
+
+/* 점 + 라벨 */
+function marker(x, y, color, label, dy) {
+    const px = wx(x), py = wy(y);
+    ctx.fillStyle = color;
+    ctx.beginPath(); ctx.arc(px, py, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; ctx.stroke();
+    if (label) {
+        ctx.fillStyle = color; ctx.font = '700 12px system-ui';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(label, px, py + (dy || -14));
+    }
+}
+
+/* ----- 전체 그리기 ----- */
+function draw() {
+    ctx.clearRect(0, 0, W, H);
+    drawGrid();
+
+    const isQuad = Math.abs(a) > 1e-9;
+    drawCurve();
+
+    if (isQuad) {
+        const p = -b / (2 * a);          // 꼭짓점 x
+        const q = c - (b * b) / (4 * a); // 꼭짓점 y
+        const D = b * b - 4 * a * c;
+
+        /* 대칭축 (점선) */
+        ctx.save();
+        ctx.setLineDash([6, 6]); ctx.lineWidth = 1.5; ctx.strokeStyle = '#a855f7';
+        ctx.beginPath(); ctx.moveTo(wx(p), 0); ctx.lineTo(wx(p), H); ctx.stroke();
+        ctx.restore();
+
+        /* 실근 (x절편) */
+        if (D >= 0) {
+            const s = Math.sqrt(D);
+            const r1 = (-b - s) / (2 * a), r2 = (-b + s) / (2 * a);
+            marker(r1, 0, '#0891b2', minus(fmt(r1)), 18);
+            if (D > 0) marker(r2, 0, '#0891b2', minus(fmt(r2)), 18);
+        }
+        /* y절편 */
+        marker(0, c, '#16a34a', null);
+        /* 꼭짓점 */
+        marker(p, q, '#e11d48', '(' + minus(fmt(p)) + ', ' + minus(fmt(q)) + ')', a > 0 ? 18 : -14);
+    }
+
+    updatePanel(isQuad);
+}
+
+/* ----- 식(일반형) 문자열 ----- */
+function generalStr(a, b, c) {
+    let s = 'y = ';
+    s += (a === 1 ? 'x²' : a === -1 ? '−x²' : minus(fmt(a)) + 'x²');
+    if (b !== 0) s += (b > 0 ? ' + ' : ' − ') + (Math.abs(b) === 1 ? '' : fmt(Math.abs(b))) + 'x';
+    if (c !== 0) s += (c > 0 ? ' + ' : ' − ') + fmt(Math.abs(c));
+    return s;
+}
+/* ----- 식(표준형) 문자열 ----- */
+function standardStr(a, p, q) {
+    let s = 'y = ';
+    s += (a === 1 ? '' : a === -1 ? '−' : minus(fmt(a)));
+    if (fmt(p) === '0') s += 'x²';
+    else s += '(x ' + (p > 0 ? '− ' + fmt(p) : '+ ' + fmt(-p)) + ')²';
+    if (fmt(q) !== '0') s += (q > 0 ? ' + ' : ' − ') + fmt(Math.abs(q));
+    return s;
+}
+
+/* ----- 정보 패널 갱신 ----- */
+function updatePanel(isQuad) {
+    const warn = document.getElementById('warn');
+    if (!isQuad) {
+        warn.style.display = 'block';
+        document.getElementById('f-general').textContent = 'y = ' +
+            (b !== 0 ? (Math.abs(b) === 1 ? (b < 0 ? '−x' : 'x') : minus(fmt(b)) + 'x') : '') +
+            (c !== 0 ? (b !== 0 ? (c > 0 ? ' + ' : ' − ') + fmt(Math.abs(c)) : minus(fmt(c))) : (b === 0 ? '0' : ''));
+        document.getElementById('f-standard').textContent = '(직선)';
+        const disc = document.getElementById('disc');
+        disc.className = 'disc zero';
+        document.getElementById('disc-val').textContent = '—';
+        document.getElementById('disc-desc').innerHTML = '<b>일차함수</b>이므로 판별식이 없습니다.';
+        ['s-vertex','s-axis','s-ext','s-convex','s-roots','s-yint'].forEach(id =>
+            document.getElementById(id).textContent = '—');
+        return;
+    }
+    warn.style.display = 'none';
+
+    const p = -b / (2 * a);
+    const q = c - (b * b) / (4 * a);
+    const D = b * b - 4 * a * c;
+
+    document.getElementById('f-general').textContent = generalStr(a, b, c);
+    document.getElementById('f-standard').textContent = standardStr(a, p, q);
+
+    /* 판별식 배지 */
+    const disc = document.getElementById('disc');
+    document.getElementById('disc-val').textContent = 'D = ' + minus(fmt(D));
+    if (D > 0) {
+        disc.className = 'disc pos';
+        document.getElementById('disc-desc').innerHTML = 'D &gt; 0 → x축과 <b>서로 다른 두 점</b>에서 만납니다 · <b>서로 다른 두 실근</b>';
+    } else if (D === 0) {
+        disc.className = 'disc zero';
+        document.getElementById('disc-desc').innerHTML = 'D = 0 → x축에 <b>접합니다</b> · <b>중근</b> (한 점에서 만남)';
+    } else {
+        disc.className = 'disc neg';
+        document.getElementById('disc-desc').innerHTML = 'D &lt; 0 → x축과 <b>만나지 않습니다</b> · <b>서로 다른 두 허근</b>';
+    }
+
+    /* 통계 */
+    document.getElementById('s-vertex').textContent = '(' + minus(fmt(p)) + ', ' + minus(fmt(q)) + ')';
+    document.getElementById('s-axis').textContent = 'x = ' + minus(fmt(p));
+    document.getElementById('s-ext-k').textContent = a > 0 ? '최솟값' : '최댓값';
+    document.getElementById('s-ext').textContent = minus(fmt(q));
+    document.getElementById('s-convex').textContent = a > 0 ? '아래로 볼록' : '위로 볼록';
+
+    if (D > 0) {
+        const s = Math.sqrt(D);
+        const r1 = (-b - s) / (2 * a), r2 = (-b + s) / (2 * a);
+        const lo = Math.min(r1, r2), hi = Math.max(r1, r2);
+        document.getElementById('s-roots').textContent = minus(fmt(lo)) + ', ' + minus(fmt(hi));
+    } else if (D === 0) {
+        document.getElementById('s-roots').textContent = minus(fmt(p)) + ' (중근)';
+    } else {
+        const re = -b / (2 * a), im = Math.sqrt(-D) / (2 * Math.abs(a));
+        document.getElementById('s-roots').textContent = minus(fmt(re)) + ' ± ' + fmt(im) + 'i';
+    }
+    document.getElementById('s-yint').textContent = minus(fmt(c));
+}
+
+/* ----- 슬라이더 연결 ----- */
+function bind(id, setter) {
+    const el = document.getElementById(id);
+    const chip = document.getElementById('chip-' + id);
+    el.addEventListener('input', () => {
+        setter(parseFloat(el.value));
+        chip.textContent = minus(el.value);
+        draw();
+    });
+}
+bind('a', v => a = v);
+bind('b', v => b = v);
+bind('c', v => c = v);
+
+/* ----- 프리셋 버튼 ----- */
+document.querySelectorAll('.presets button').forEach(btn => {
+    btn.addEventListener('click', () => {
+        a = parseFloat(btn.dataset.a);
+        b = parseFloat(btn.dataset.b);
+        c = parseFloat(btn.dataset.c);
+        ['a', 'b', 'c'].forEach(id => {
+            const el = document.getElementById(id);
+            el.value = { a, b, c }[id];
+            document.getElementById('chip-' + id).textContent = minus(el.value);
+        });
+        draw();
+    });
+});
+
+window.addEventListener('resize', resize);
+resize();
+</script>
+</body>
+</html>
