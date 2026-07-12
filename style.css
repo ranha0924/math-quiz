@@ -1,116 +1,117 @@
 /* ============================================================
-   이차함수 배움터 - 공용 스타일 (랜딩 · 퀴즈)
+   이차함수 배움터 - 공용 스타일 (따뜻한 종이 · 학구적 테마)
    ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap');
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-    --bg1: #eef2f8; --bg2: #e4e9f5;
-    --card: #ffffff; --ink: #1e293b; --muted: #64748b; --line: #e2e8f0;
-    --accent: #4f46e5; --accent-2: #6366f1; --accent-soft: #eef2ff;
-    --pos: #16a34a; --pos-bg: #dcfce7;
-    --neg: #e11d48; --neg-bg: #ffe4e6;
+    --paper: #F4EDDD; --paper-2: #ECE1CB;
+    --card: #FBF6EA; --ink: #2E2A25; --muted: #8A7B5C; --line: #E4D8BF;
+    --accent: #C1614A; --accent-2: #A2432F; --accent-soft: #F1E3D5;
+    --olive: #6E7A45;
+    --pos: #5F7A3B; --pos-bg: #E9ECD6;
+    --neg: #B23A32; --neg-bg: #F6E1D9;
+    --serif: 'Nanum Myeongjo', Georgia, 'Times New Roman', serif;
 }
 
 body {
     font-family: system-ui, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-    background: linear-gradient(160deg, var(--bg1) 0%, var(--bg2) 100%);
+    background: linear-gradient(165deg, var(--paper) 0%, var(--paper-2) 100%);
     color: var(--ink);
     min-height: 100vh;
+}
+/* 은은한 종이 질감 */
+body::before {
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
 .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
 
 /* ============================================================
-   상단 네비게이션 (전 페이지 공용)
+   상단 네비게이션
    ============================================================ */
 .navbar {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--line);
-    position: sticky; top: 0; z-index: 10;
+    background: rgba(251, 246, 234, 0.82); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10;
 }
-.navbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
-.brand { font-weight: 800; font-size: 18px; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
-.brand .logo {
-    width: 30px; height: 30px; border-radius: 8px; background: var(--accent); color: #fff;
-    display: grid; place-items: center; font-size: 18px; font-family: Georgia, serif;
-}
+.navbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+.brand { font-family: var(--serif); font-weight: 800; font-size: 19px; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 9px; }
+.brand .logo { width: 30px; height: 30px; border-radius: 8px; background: var(--accent); color: #fff;
+    display: grid; place-items: center; font-size: 18px; font-family: Georgia, serif; }
 .nav-links { display: flex; gap: 6px; }
-.nav-links a {
-    text-decoration: none; color: var(--muted); font-weight: 600; font-size: 14px;
-    padding: 8px 14px; border-radius: 999px; transition: all .15s ease;
-}
+.nav-links a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 14px;
+    padding: 8px 14px; border-radius: 999px; transition: all .15s ease; }
 .nav-links a:hover { color: var(--accent); background: var(--accent-soft); }
 .nav-links a.active { color: #fff; background: var(--accent); }
 
 /* ============================================================
    랜딩 - 히어로
    ============================================================ */
-.hero { text-align: center; padding: 56px 16px 40px; }
-.hero .eyebrow {
-    display: inline-block; padding: 5px 14px; background: var(--accent); color: #fff;
-    border-radius: 999px; font-size: 12.5px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 18px;
-}
-.hero h1 { font-size: 38px; letter-spacing: -1px; line-height: 1.2; }
+.hero { text-align: center; padding: 60px 16px 42px; }
+.hero .eyebrow { display: inline-block; padding: 5px 14px; background: var(--accent); color: #fff;
+    border-radius: 999px; font-size: 12.5px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 20px; }
+.hero h1 { font-family: var(--serif); font-weight: 800; font-size: 44px; letter-spacing: -0.5px; line-height: 1.25; }
 .hero h1 .hl { color: var(--accent); }
-.hero p { color: var(--muted); font-size: 16px; margin-top: 16px; line-height: 1.6; }
+.hero p { color: var(--muted); font-size: 16px; margin-top: 18px; line-height: 1.7; }
 
 /* 랜딩 - 두 기둥 카드 */
 .feature-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding-bottom: 24px; }
 @media (min-width: 760px) { .feature-grid { grid-template-columns: 1fr 1fr; } }
 
 .feature-card {
-    background: var(--card); border-radius: 20px; padding: 28px; text-decoration: none; color: var(--ink);
-    box-shadow: 0 8px 30px rgba(30, 41, 59, 0.08); border: 1px solid transparent;
+    background: var(--card); border-radius: 18px; padding: 28px; text-decoration: none; color: var(--ink);
+    box-shadow: 0 10px 28px rgba(46, 42, 37, 0.08); border: 1px solid var(--line);
     transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
     display: flex; flex-direction: column;
 }
-.feature-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(79, 70, 229, 0.18); border-color: var(--accent); }
+.feature-card:hover { transform: translateY(-4px); box-shadow: 0 18px 38px rgba(161, 67, 47, 0.16); border-color: var(--accent); }
 .feature-card .fc-icon { width: 52px; height: 52px; border-radius: 14px; background: var(--accent-soft); display: grid; place-items: center; margin-bottom: 16px; }
-.feature-card h3 { font-size: 21px; margin-bottom: 8px; }
-.feature-card p { color: var(--muted); font-size: 14px; line-height: 1.6; flex: 1; }
+.feature-card h3 { font-family: var(--serif); font-weight: 700; font-size: 23px; margin-bottom: 8px; }
+.feature-card p { color: var(--muted); font-size: 14px; line-height: 1.7; flex: 1; }
 .feature-card .fc-go { margin-top: 18px; color: var(--accent); font-weight: 700; font-size: 14px; }
 
 .mini-graph { width: 100%; height: 96px; margin-bottom: 16px; }
 
 /* 랜딩 - 유형 미리보기 스트립 */
-.strip { padding: 8px 0 56px; }
-.strip h2 { font-size: 15px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 14px; text-align: center; }
+.strip { padding: 8px 0 60px; }
+.strip h2 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; text-align: center; }
 .chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-.chips span { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; font-size: 13.5px; font-weight: 600; color: var(--ink); }
+.chips span { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; font-size: 13.5px; font-weight: 600; color: var(--ink); }
 
 /* ============================================================
    퀴즈 - 유형 선택
    ============================================================ */
-.page-head { text-align: center; padding: 40px 16px 24px; }
-.page-head h1 { font-size: 30px; letter-spacing: -0.5px; }
-.page-head p { color: var(--muted); margin-top: 10px; }
+.page-head { text-align: center; padding: 44px 16px 26px; }
+.page-head h1 { font-family: var(--serif); font-weight: 800; font-size: 34px; letter-spacing: -0.3px; }
+.page-head p { color: var(--muted); margin-top: 12px; }
 
 .type-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; padding-bottom: 24px; }
 .type-card {
-    background: var(--card); border-radius: 16px; padding: 20px; cursor: pointer; text-align: left;
-    border: 1px solid var(--line); box-shadow: 0 6px 20px rgba(30, 41, 59, 0.06);
+    background: var(--card); border-radius: 15px; padding: 20px; cursor: pointer; text-align: left;
+    border: 1px solid var(--line); box-shadow: 0 6px 18px rgba(46, 42, 37, 0.06);
     transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
     display: flex; gap: 14px; align-items: flex-start; font-family: inherit;
 }
-.type-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(79, 70, 229, 0.15); border-color: var(--accent); }
+.type-card:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(161, 67, 47, 0.14); border-color: var(--accent); }
 .type-card .t-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--accent-soft); color: var(--accent);
     display: grid; place-items: center; font-size: 20px; font-weight: 800; font-family: Georgia, serif; flex-shrink: 0; }
-.type-card .t-name { font-size: 16.5px; font-weight: 700; }
-.type-card .t-desc { font-size: 13px; color: var(--muted); margin-top: 3px; }
+.type-card .t-name { font-family: var(--serif); font-size: 17px; font-weight: 700; }
+.type-card .t-desc { font-size: 13px; color: var(--muted); margin-top: 4px; }
 .type-card .t-count { font-size: 12px; color: var(--accent); font-weight: 700; margin-top: 8px; }
 
 .type-card.all { background: linear-gradient(135deg, var(--accent), var(--accent-2)); border: none; }
-.type-card.all .t-icon { background: rgba(255,255,255,0.2); color: #fff; }
-.type-card.all .t-name, .type-card.all .t-desc, .type-card.all .t-count { color: #fff; }
-.type-card.all .t-desc { color: rgba(255,255,255,0.85); }
+.type-card.all .t-icon { background: rgba(255,255,255,0.22); color: #fff; }
+.type-card.all .t-name, .type-card.all .t-count { color: #fff; }
+.type-card.all .t-desc { color: rgba(255,255,255,0.9); }
 
 /* ============================================================
    퀴즈 - 문제 풀이
    ============================================================ */
 .quiz-card {
-    background: var(--card); border-radius: 20px; padding: 28px; max-width: 640px; margin: 32px auto;
-    box-shadow: 0 10px 40px rgba(30, 41, 59, 0.10);
+    background: var(--card); border-radius: 18px; padding: 28px; max-width: 640px; margin: 34px auto;
+    box-shadow: 0 12px 36px rgba(46, 42, 37, 0.10); border: 1px solid var(--line);
 }
 .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
 .link-btn { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 14px; font-weight: 600; font-family: inherit; padding: 6px 0; }
@@ -118,30 +119,30 @@ body {
 .progress { font-size: 14px; color: var(--muted); font-weight: 700; }
 .progress b { color: var(--accent); }
 
-.type-title { text-align: center; font-size: 15px; color: var(--accent); font-weight: 700; margin-bottom: 18px; }
+.type-title { font-family: var(--serif); text-align: center; font-size: 17px; color: var(--accent); font-weight: 700; margin-bottom: 18px; }
 
 .progress-bar { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; margin-bottom: 22px; }
 .progress-bar .fill { height: 100%; background: var(--accent); border-radius: 999px; transition: width .3s ease; width: 0; }
 
-.question-box { background: #f8fafc; border-radius: 15px; padding: 28px 24px; margin-bottom: 22px; text-align: center; }
+.question-box { background: #F6EFDF; border-radius: 14px; padding: 28px 24px; margin-bottom: 22px; text-align: center; border: 1px solid var(--line); }
 .question-cat { font-size: 12.5px; color: var(--accent); font-weight: 700; margin-bottom: 12px; }
 .question-text { font-size: 20px; color: var(--ink); line-height: 1.6; word-break: keep-all; }
 
 .options { display: flex; flex-direction: column; gap: 11px; }
 .option-btn {
     padding: 16px 22px; font-size: 16px; border: 2px solid var(--line); border-radius: 12px;
-    background: #fff; cursor: pointer; transition: all .15s ease; text-align: left; font-family: inherit; color: var(--ink);
+    background: var(--card); cursor: pointer; transition: all .15s ease; text-align: left; font-family: inherit; color: var(--ink);
 }
 .option-btn:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
-.option-btn.correct { border-color: var(--pos); background: var(--pos-bg); color: #166534; font-weight: 700; }
-.option-btn.wrong { border-color: var(--neg); background: var(--neg-bg); color: #9f1239; }
+.option-btn.correct { border-color: var(--pos); background: var(--pos-bg); color: #3f5226; font-weight: 700; }
+.option-btn.wrong { border-color: var(--neg); background: var(--neg-bg); color: #8a281f; }
 .option-btn:disabled { cursor: default; }
 
 /* ============================================================
    퀴즈 - 결과
    ============================================================ */
 .result-card { text-align: center; }
-.result-score { font-size: 68px; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+.result-score { font-family: var(--serif); font-size: 68px; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 8px; }
 .result-text { font-size: 20px; color: var(--ink); margin-bottom: 6px; }
 .result-message { font-size: 16px; color: var(--muted); margin-bottom: 28px; }
 .result-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
@@ -150,24 +151,24 @@ body {
     font-family: inherit; transition: transform .15s ease, box-shadow .15s ease; text-decoration: none; display: inline-block;
 }
 .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3); }
-.btn-ghost { background: #fff; color: var(--ink); border: 1px solid var(--line); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(161, 67, 47, 0.3); }
+.btn-ghost { background: var(--card); color: var(--ink); border: 1px solid var(--line); }
 .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-footer { text-align: center; color: var(--muted); font-size: 13px; padding: 32px 16px; }
+footer { text-align: center; color: var(--muted); font-size: 13px; padding: 34px 16px; }
 
 /* 그래프 읽기 - 문제 속 미니 그래프 */
 .q-graph { display: block; width: 100%; max-width: 320px; height: 220px; margin: 0 auto 18px;
-    background: #fbfcfe; border-radius: 12px; border: 1px solid var(--line); }
+    background: #FCF8EE; border-radius: 12px; border: 1px solid var(--line); }
 
 /* 오답노트 카드 */
-.type-card.wrong { border-color: #fecaca; background: #fff5f5; }
+.type-card.wrong { border-color: #E4B7A6; background: #FBEDE4; }
 .type-card.wrong .t-icon { background: var(--neg-bg); color: var(--neg); }
 .mini-clear { background: none; border: none; color: var(--muted); text-decoration: underline;
     cursor: pointer; font-size: 12px; font-family: inherit; padding: 0; }
 .mini-clear:hover { color: var(--neg); }
 
-/* KaTeX 폰트 크기 문제 텍스트에 맞춤 */
+/* KaTeX 크기 */
 .question-text .katex { font-size: 1.05em; }
 .option-btn .katex { font-size: 1em; }
 

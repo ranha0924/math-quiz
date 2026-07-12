@@ -91,15 +91,15 @@ function drawMiniParabola(canvas, a, b, c) {
 
     ctx.clearRect(0, 0, W, H);
     // 격자
-    ctx.strokeStyle = '#eef2f8'; ctx.lineWidth = 1;
+    ctx.strokeStyle = '#EFE6D0'; ctx.lineWidth = 1;
     for (let i = -4; i <= 4; i++) { ctx.beginPath(); ctx.moveTo(wx(i), 0); ctx.lineTo(wx(i), H); ctx.stroke(); }
     for (let j = -6; j <= 6; j += 2) { ctx.beginPath(); ctx.moveTo(0, wy(j)); ctx.lineTo(W, wy(j)); ctx.stroke(); }
     // 축
-    ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.5;
+    ctx.strokeStyle = '#B7A98C'; ctx.lineWidth = 1.5;
     ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(W, cy); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();
     // 포물선
-    ctx.strokeStyle = '#4f46e5'; ctx.lineWidth = 3; ctx.lineJoin = 'round';
+    ctx.strokeStyle = '#C1614A'; ctx.lineWidth = 3; ctx.lineJoin = 'round';
     ctx.beginPath();
     let started = false;
     for (let px = 0; px <= W; px++) {
@@ -117,10 +117,10 @@ function drawMiniParabola(canvas, a, b, c) {
     if (D >= 0) {
         const s = Math.sqrt(D);
         const roots = D === 0 ? [-b / (2 * a)] : [(-b - s) / (2 * a), (-b + s) / (2 * a)];
-        roots.forEach(r => dot(r, 0, '#0891b2'));
+        roots.forEach(r => dot(r, 0, '#3A7D7B'));
     }
     // y절편
-    dot(0, c, '#16a34a');
+    dot(0, c, '#6E7A45');
 }
 
 /* ============================================================

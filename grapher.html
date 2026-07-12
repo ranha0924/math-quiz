@@ -5,35 +5,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>이차함수 그래프 실험실</title>
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-        --bg: #eef2f8; --card: #ffffff; --ink: #1e293b; --muted: #64748b; --line: #e2e8f0;
-        --accent: #4f46e5; --vertex: #e11d48; --root: #0891b2; --yint: #16a34a; --axis-sym: #a855f7;
-        --line-c: #f59e0b; --xpt: #ea580c;
-        --pos: #16a34a; --pos-bg: #dcfce7; --zero: #d97706; --zero-bg: #fef3c7; --neg: #e11d48; --neg-bg: #ffe4e6;
+        --bg: #F4EDDD; --card: #FBF6EA; --ink: #2E2A25; --muted: #8A7B5C; --line: #E4D8BF;
+        --accent: #C1614A; --vertex: #9B3D5B; --root: #3A7D7B; --yint: #6E7A45; --axis-sym: #B0792E;
+        --line-c: #3E6B8E; --xpt: #A2432F;
+        --pos: #5F7A3B; --pos-bg: #E9ECD6; --zero: #B0792E; --zero-bg: #F3E8CE; --neg: #B23A32; --neg-bg: #F6E1D9;
+        --serif: 'Nanum Myeongjo', Georgia, serif;
     }
     body {
         font-family: system-ui, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-        background: linear-gradient(160deg, #eef2f8 0%, #e4e9f5 100%);
+        background: linear-gradient(165deg, #F4EDDD 0%, #ECE1CB 100%);
         color: var(--ink); min-height: 100vh; padding: 0 0 48px;
     }
+    body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"); }
     .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
 
     /* 상단 네비게이션 (사이트 공용) */
-    .navbar { background: rgba(255,255,255,0.8); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+    .navbar { background: rgba(251,246,234,0.82); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
         position: sticky; top: 0; z-index: 10; margin-bottom: 24px; }
     .navbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
-    .brand { font-weight: 800; font-size: 18px; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .brand { font-family: var(--serif); font-weight: 800; font-size: 19px; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
     .brand .logo { width: 30px; height: 30px; border-radius: 8px; background: var(--accent); color: #fff;
         display: grid; place-items: center; font-size: 18px; font-family: Georgia, serif; }
     .nav-links { display: flex; gap: 6px; }
     .nav-links a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 14px;
         padding: 8px 14px; border-radius: 999px; transition: all .15s ease; }
-    .nav-links a:hover { color: var(--accent); background: #eef2ff; }
+    .nav-links a:hover { color: var(--accent); background: #F1E3D5; }
     .nav-links a.active { color: #fff; background: var(--accent); }
 
     header { text-align: center; margin-bottom: 18px; }
-    header h1 { font-size: 26px; letter-spacing: -0.5px; }
+    header h1 { font-family: var(--serif); font-weight: 800; font-size: 28px; letter-spacing: -0.3px; }
     header .tag { display: inline-block; margin-bottom: 10px; padding: 4px 12px; background: var(--accent);
         color: #fff; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; }
     header p { color: var(--muted); margin-top: 8px; font-size: 14px; }
@@ -41,7 +45,7 @@
     /* 모드 탭 */
     .tabs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 20px; }
     .tab {
-        border: 1px solid var(--line); background: #fff; color: var(--muted);
+        border: 1px solid var(--line); background: var(--card); color: var(--muted);
         padding: 9px 16px; border-radius: 999px; cursor: pointer; font-size: 14px; font-weight: 700;
         transition: all .15s ease;
     }
@@ -51,12 +55,12 @@
     .layout { display: grid; grid-template-columns: 1fr; gap: 20px; }
     @media (min-width: 860px) { .layout { grid-template-columns: 1.15fr 1fr; align-items: start; } }
 
-    .card { background: var(--card); border-radius: 18px; padding: 20px; box-shadow: 0 8px 30px rgba(30,41,59,0.08); }
+    .card { background: var(--card); border-radius: 18px; padding: 20px; border: 1px solid var(--line); box-shadow: 0 10px 28px rgba(46,42,37,0.08); }
     .card + .card { margin-top: 20px; }
     .card h2 { font-size: 14px; color: var(--muted); font-weight: 700; margin-bottom: 14px;
         text-transform: uppercase; letter-spacing: 0.6px; }
 
-    #graph { width: 100%; aspect-ratio: 1 / 1; display: block; border-radius: 12px; background: #fbfcfe; }
+    #graph { width: 100%; aspect-ratio: 1 / 1; display: block; border-radius: 12px; background: #FCF8EE; }
     .legend { display: flex; flex-wrap: wrap; gap: 10px 14px; margin-top: 14px; font-size: 12.5px; color: var(--muted); }
     .legend span { display: inline-flex; align-items: center; gap: 6px; }
     .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
@@ -68,27 +72,27 @@
     .slider-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
     .slider-head label { font-weight: 700; font-size: 15px; }
     .slider-head .coef-name { color: var(--accent); }
-    .chip { font-variant-numeric: tabular-nums; font-weight: 700; background: #eef2ff; color: var(--accent);
+    .chip { font-variant-numeric: tabular-nums; font-weight: 700; background: #F1E3D5; color: var(--accent);
         padding: 3px 12px; border-radius: 999px; font-size: 15px; min-width: 58px; text-align: center; }
     input[type=range] { width: 100%; accent-color: var(--accent); height: 22px; cursor: pointer; }
 
     .presets { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
     .presets button, .ineq-btns button {
-        border: 1px solid var(--line); background: #f8fafc; color: var(--ink);
+        border: 1px solid var(--line); background: #F6EFDF; color: var(--ink);
         padding: 8px 12px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all .15s ease; }
-    .presets button:hover, .ineq-btns button:hover { border-color: var(--accent); color: var(--accent); background: #eef2ff; }
+    .presets button:hover, .ineq-btns button:hover { border-color: var(--accent); color: var(--accent); background: #F1E3D5; }
     .ineq-btns { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
     .ineq-btns button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
     .mode-ctrl { display: none; }
     .hint { font-size: 12.5px; color: var(--muted); margin-top: 10px; line-height: 1.5; }
 
-    .formula { font-family: 'Cambria Math','Times New Roman',Georgia,serif; font-size: 19px; background: #f8fafc;
+    .formula { font-family: 'Cambria Math','Times New Roman',Georgia,serif; font-size: 19px; background: #F6EFDF;
         border-radius: 10px; padding: 11px 15px; margin-bottom: 8px; overflow-x: auto; white-space: nowrap; }
     .formula .lbl { font-family: system-ui, sans-serif; font-size: 12px; color: var(--muted); display: block; margin-bottom: 2px; }
 
     .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
-    .stat { background: #f8fafc; border-radius: 10px; padding: 10px 12px; }
+    .stat { background: #F6EFDF; border-radius: 10px; padding: 10px 12px; }
     .stat.wide { grid-column: 1 / -1; }
     .stat .k { font-size: 11.5px; color: var(--muted); font-weight: 700; }
     .stat .v { font-size: 16px; font-weight: 700; margin-top: 3px; font-variant-numeric: tabular-nums; }
@@ -101,7 +105,7 @@
     .disc.neg .big, .disc.neg .desc b { color: var(--neg); }
     .disc .desc { font-size: 13.5px; line-height: 1.5; }
 
-    .sol { margin-top: 6px; padding: 16px; border-radius: 12px; background: #eef2ff; text-align: center; }
+    .sol { margin-top: 6px; padding: 16px; border-radius: 12px; background: #F1E3D5; text-align: center; }
     .sol .k { font-size: 12px; color: var(--muted); font-weight: 700; }
     .sol .v { font-size: 22px; font-weight: 800; color: var(--accent); margin-top: 6px; font-variant-numeric: tabular-nums; }
 
@@ -169,11 +173,11 @@
                 <!-- 직선 모드 컨트롤 -->
                 <div class="mode-ctrl" id="ctrl-line" style="margin-top:18px;border-top:1px solid var(--line);padding-top:16px">
                     <div class="slider-row">
-                        <div class="slider-head"><label style="color:var(--line-c)">m · 직선 기울기</label><span class="chip" id="chip-m" style="background:#fef3c7;color:#b45309">1</span></div>
+                        <div class="slider-head"><label style="color:var(--line-c)">m · 직선 기울기</label><span class="chip" id="chip-m" style="background:#E1EAF0;color:#2F5A78">1</span></div>
                         <input type="range" id="m" min="-6" max="6" step="0.5" value="1" style="accent-color:var(--line-c)">
                     </div>
                     <div class="slider-row">
-                        <div class="slider-head"><label style="color:var(--line-c)">n · 직선 y절편</label><span class="chip" id="chip-n" style="background:#fef3c7;color:#b45309">0</span></div>
+                        <div class="slider-head"><label style="color:var(--line-c)">n · 직선 y절편</label><span class="chip" id="chip-n" style="background:#E1EAF0;color:#2F5A78">0</span></div>
                         <input type="range" id="n" min="-8" max="8" step="0.5" value="0" style="accent-color:var(--line-c)">
                     </div>
                     <p class="hint">직선 <b>y = mx + n</b> 과 포물선의 교점은 <b>ax²+(b−m)x+(c−n)=0</b> 의 실근. 판별식 D′ 로 위치 관계가 결정됩니다.</p>
@@ -261,18 +265,18 @@ const visR = () => (W - cx) / ppu;
 function drawGrid() {
     const xmin = Math.ceil(-cx / ppu), xmax = Math.floor((W - cx) / ppu);
     const ymin = Math.ceil(-(H - cy) / ppu), ymax = Math.floor(cy / ppu);
-    ctx.lineWidth = 1; ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 1; ctx.strokeStyle = '#E4D8BF';
     for (let i = xmin; i <= xmax; i++) { ctx.beginPath(); ctx.moveTo(wx(i), 0); ctx.lineTo(wx(i), H); ctx.stroke(); }
     for (let j = ymin; j <= ymax; j++) { ctx.beginPath(); ctx.moveTo(0, wy(j)); ctx.lineTo(W, wy(j)); ctx.stroke(); }
-    ctx.lineWidth = 1.6; ctx.strokeStyle = '#94a3b8';
+    ctx.lineWidth = 1.6; ctx.strokeStyle = '#B7A98C';
     ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(W, cy); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();
-    ctx.fillStyle = '#64748b'; ctx.font = '11px system-ui';
+    ctx.fillStyle = '#8A7B5C'; ctx.font = '11px system-ui';
     ctx.textAlign = 'center'; ctx.textBaseline = 'top';
     for (let i = xmin; i <= xmax; i++) if (i !== 0 && i % 2 === 0) ctx.fillText(minus(i), wx(i), cy + 5);
     ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
     for (let j = ymin; j <= ymax; j++) if (j !== 0 && j % 2 === 0) ctx.fillText(minus(j), cx - 6, wy(j));
-    ctx.fillStyle = '#94a3b8'; ctx.font = 'italic 13px Georgia';
+    ctx.fillStyle = '#B7A98C'; ctx.font = 'italic 13px Georgia';
     ctx.textAlign = 'right'; ctx.textBaseline = 'top'; ctx.fillText('x', W - 6, cy + 5);
     ctx.textAlign = 'left'; ctx.fillText('y', cx + 6, 4);
 }
@@ -394,7 +398,7 @@ function draw() {
 
     if (isQuad && mode === 'ineq') {
         const sol = solveIneq(a, b, c, ineqType);
-        ctx.fillStyle = 'rgba(225,29,72,0.10)';
+        ctx.fillStyle = 'rgba(178,58,50,0.10)';
         for (const [lo, hi] of sol.bands) {
             const x0 = Math.max(lo, visL()), x1 = Math.min(hi, visR());
             if (x1 > x0) ctx.fillRect(wx(x0), 0, wx(x1) - wx(x0), H);
@@ -402,36 +406,36 @@ function draw() {
     }
     if (isQuad && mode === 'minmax') {
         const lo = Math.min(alpha, beta), hi = Math.max(alpha, beta);
-        ctx.fillStyle = 'rgba(79,70,229,0.10)';
+        ctx.fillStyle = 'rgba(193,97,74,0.10)';
         ctx.fillRect(wx(lo), 0, wx(hi) - wx(lo), H);
-        vline(lo, '#a5b4fc', [5, 5]); vline(hi, '#a5b4fc', [5, 5]);
+        vline(lo, '#D8B48F', [5, 5]); vline(hi, '#D8B48F', [5, 5]);
     }
 
-    drawCurve('#4f46e5', 3);   // 기본 포물선
+    drawCurve('#C1614A', 3);   // 기본 포물선
 
     if (!isQuad) { updatePanel(false); return; }
 
     if (mode === 'basic') {
         const p = -b / (2 * a), q = c - (b * b) / (4 * a), D = b * b - 4 * a * c;
-        vline(p, '#a855f7', [6, 6]);
+        vline(p, '#B0792E', [6, 6]);
         if (D >= 0) {
             const s = Math.sqrt(D), r1 = (-b - s) / (2 * a), r2 = (-b + s) / (2 * a);
-            marker(r1, 0, '#0891b2', minus(fmt(r1)), 18);
-            if (D > 0) marker(r2, 0, '#0891b2', minus(fmt(r2)), 18);
+            marker(r1, 0, '#3A7D7B', minus(fmt(r1)), 18);
+            if (D > 0) marker(r2, 0, '#3A7D7B', minus(fmt(r2)), 18);
         }
-        marker(0, c, '#16a34a', null);
-        marker(p, q, '#e11d48', '(' + minus(fmt(p)) + ', ' + minus(fmt(q)) + ')', a > 0 ? 18 : -14);
+        marker(0, c, '#6E7A45', null);
+        marker(p, q, '#9B3D5B', '(' + minus(fmt(p)) + ', ' + minus(fmt(q)) + ')', a > 0 ? 18 : -14);
     }
     else if (mode === 'line') {
         // 직선
-        ctx.lineWidth = 2.5; ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 2.5; ctx.strokeStyle = '#3E6B8E';
         ctx.beginPath(); ctx.moveTo(wx(visL()), wy(m * visL() + n)); ctx.lineTo(wx(visR()), wy(m * visR() + n)); ctx.stroke();
         // 교점
         const A = a, B = b - m, C = c - n, D = B * B - 4 * A * C;
         if (D >= 0) {
             const s = Math.sqrt(D), x1 = (-B - s) / (2 * A), x2 = (-B + s) / (2 * A);
-            marker(x1, f(x1), '#ea580c', null);
-            if (D > 0) marker(x2, f(x2), '#ea580c', null);
+            marker(x1, f(x1), '#A2432F', null);
+            if (D > 0) marker(x2, f(x2), '#A2432F', null);
         }
     }
     else if (mode === 'minmax') {
@@ -441,14 +445,14 @@ function draw() {
         if (p >= lo && p <= hi) cand.push({ x: p, y: f(p) });
         let mx = cand[0], mn = cand[0];
         for (const c2 of cand) { if (c2.y > mx.y) mx = c2; if (c2.y < mn.y) mn = c2; }
-        drawCurve('#4f46e5', 4, lo, hi);   // 구간 강조
-        marker(mx.x, mx.y, '#e11d48', '최대', -14);
-        marker(mn.x, mn.y, '#0891b2', '최소', 18);
+        drawCurve('#C1614A', 4, lo, hi);   // 구간 강조
+        marker(mx.x, mx.y, '#9B3D5B', '최대', -14);
+        marker(mn.x, mn.y, '#3A7D7B', '최소', 18);
     }
     else if (mode === 'ineq') {
         const sol = solveIneq(a, b, c, ineqType);
-        for (const [lo, hi] of sol.bands) drawCurve('#e11d48', 4, lo, hi);
-        for (const mk of sol.marks) { if (mk.closed) marker(mk.x, 0, '#e11d48', null); else markerOpen(mk.x, 0, '#e11d48'); }
+        for (const [lo, hi] of sol.bands) drawCurve('#B23A32', 4, lo, hi);
+        for (const mk of sol.marks) { if (mk.closed) marker(mk.x, 0, '#B23A32', null); else markerOpen(mk.x, 0, '#B23A32'); }
     }
     updatePanel(true);
 }
@@ -541,8 +545,8 @@ function updateLegend() {
     let h = `<span><i class="dot" style="background:var(--accent)"></i>포물선</span>`;
     if (mode === 'basic') h += item('var(--vertex)', '꼭짓점') + item('var(--root)', 'x절편') + item('var(--yint)', 'y절편') + `<span><i class="dash"></i>대칭축</span>`;
     else if (mode === 'line') h += `<span><i class="bar" style="background:var(--line-c)"></i>직선 y=mx+n</span>` + item('var(--xpt)', '교점');
-    else if (mode === 'minmax') h += `<span><i class="bar" style="background:#c7d2fe"></i>구간 [α,β]</span>` + item('var(--vertex)', '최대') + item('var(--root)', '최소');
-    else if (mode === 'ineq') h += `<span><i class="bar" style="background:#fecdd3"></i>해 영역</span>` + item('var(--neg)', '만족 구간');
+    else if (mode === 'minmax') h += `<span><i class="bar" style="background:#E3CBB0"></i>구간 [α,β]</span>` + item('var(--vertex)', '최대') + item('var(--root)', '최소');
+    else if (mode === 'ineq') h += `<span><i class="bar" style="background:#EBC7BC"></i>해 영역</span>` + item('var(--neg)', '만족 구간');
     L.innerHTML = h;
 }
 
