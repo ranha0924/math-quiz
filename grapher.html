@@ -36,14 +36,15 @@
     .nav-links a:hover { color: var(--accent); background: #F1E3D5; }
     .nav-links a.active { color: #fff; background: var(--accent); }
 
-    header { text-align: center; margin-bottom: 18px; }
-    header h1 { font-family: var(--serif); font-weight: 800; font-size: 28px; letter-spacing: -0.3px; }
-    header .tag { display: inline-block; margin-bottom: 10px; padding: 4px 12px; background: var(--accent);
-        color: #fff; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; }
+    header { text-align: left; margin-bottom: 22px; padding-top: 6px; }
+    header h1 { font-family: var(--serif); font-weight: 800; font-size: 30px; letter-spacing: -0.3px; }
+    header .kicker { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    header .kicker .rule { width: 34px; height: 2px; background: var(--accent); }
+    header .kicker span:last-child { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); font-weight: 700; }
     header p { color: var(--muted); margin-top: 8px; font-size: 14px; }
 
     /* 모드 탭 */
-    .tabs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 20px; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-start; margin-bottom: 20px; }
     .tab {
         border: 1px solid var(--line); background: var(--card); color: var(--muted);
         padding: 9px 16px; border-radius: 999px; cursor: pointer; font-size: 14px; font-weight: 700;
@@ -127,7 +128,7 @@
 </nav>
 <div class="wrap">
     <header>
-        <span class="tag">인터랙티브 그래프</span>
+        <div class="kicker"><span class="rule"></span><span>인터랙티브 그래프</span></div>
         <h1>이차함수 그래프 실험실</h1>
         <p><b>y = ax² + bx + c</b> 를 슬라이더로 움직이며 그래프를 탐구해 보세요.</p>
     </header>

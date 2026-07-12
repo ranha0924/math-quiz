@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- 상단 네비게이션 -->
     <nav class="navbar">
         <div class="wrap">
             <a href="index.html" class="brand"><span class="logo">∪</span> 이차함수 배움터</a>
@@ -20,65 +19,86 @@
 
     <div class="wrap">
         <!-- 히어로 -->
-        <section class="hero">
-            <span class="eyebrow">고1 · 방정식과 부등식</span>
-            <h1><span class="hl">이차함수</span>, 그래프로 보고<br>유형으로 익히다</h1>
-            <p>슬라이더로 포물선을 직접 움직여 판별식·최대최소·이차부등식을 눈으로 이해하고,<br>유형별 퀴즈로 개념을 확실히 다지세요.</p>
+        <section class="hero-split">
+            <span class="side-label">Quadratic · 이차함수</span>
+
+            <div class="hero-left">
+                <div class="eyebrow-row"><span class="rule"></span><span class="txt">고1 · 방정식과 부등식</span></div>
+                <h1><span class="hl">이차함수</span>,<br>그래프로 보고<br><em>유형</em>으로 익히다</h1>
+                <p class="hero-lead">슬라이더로 포물선을 직접 움직여 판별식·최대최소·이차부등식을 눈으로 이해하고, 유형별 퀴즈로 개념을 확실히 다집니다.</p>
+                <div class="hero-cta">
+                    <a href="grapher.html" class="btn-solid">그래프 실험실 →</a>
+                    <a href="quiz.html" class="btn-line">유형별 퀴즈</a>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <!-- 손그림 잉크 포물선 스케치 -->
+                <svg class="sketch" viewBox="0 0 460 380" fill="none" aria-hidden="true">
+                    <defs>
+                        <filter id="ink" x="-20%" y="-20%" width="140%" height="140%">
+                            <feTurbulence type="fractalNoise" baseFrequency="0.016" numOctaves="2" seed="7" result="n"/>
+                            <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5"/>
+                        </filter>
+                    </defs>
+                    <!-- 축 + 포물선 (거친 잉크 필터) -->
+                    <g filter="url(#ink)" stroke-linecap="round" fill="none">
+                        <path d="M44 236 H420" stroke="#2E2A25" stroke-width="2.2"/>
+                        <path d="M420 236 l-11 -6 M420 236 l-11 6" stroke="#2E2A25" stroke-width="2"/>
+                        <path d="M210 44 V330" stroke="#B0792E" stroke-width="1.6" stroke-dasharray="4 7"/>
+                        <path d="M92 58 Q210 548 328 58" stroke="#B14A32" stroke-width="3.4"/>
+                    </g>
+                    <!-- 점 -->
+                    <circle cx="210" cy="300" r="5.5" fill="#9B3D5B"/>
+                    <circle cx="146" cy="236" r="5" fill="#3A7D7B"/>
+                    <circle cx="274" cy="236" r="5" fill="#3A7D7B"/>
+                    <!-- 손글씨풍 주석 (명조 이탤릭) -->
+                    <g font-family="'Nanum Myeongjo', Georgia, serif" font-style="italic">
+                        <text x="224" y="316" font-size="15" fill="#9B3D5B">꼭짓점</text>
+                        <text x="216" y="66" font-size="14" fill="#B0792E">축</text>
+                        <text x="112" y="224" font-size="14" fill="#3A7D7B">근</text>
+                        <text x="300" y="150" font-size="15" fill="#2E2A25">a &gt; 0</text>
+                        <text x="60" y="120" font-size="14" fill="#8A7B5C">y = ax² + bx + c</text>
+                    </g>
+                    <path d="M330 158 q-14 6 -26 20" stroke="#8A7B5C" stroke-width="1.2" fill="none" filter="url(#ink)"/>
+                </svg>
+            </div>
         </section>
 
-        <!-- 두 기둥 -->
-        <section class="feature-grid">
-            <!-- 그래프 실험실 -->
-            <a href="grapher.html" class="feature-card">
-                <svg class="mini-graph" viewBox="0 0 260 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-                    <line x1="0" y1="72" x2="260" y2="72" stroke="#E4D8BF" stroke-width="1.5"/>
-                    <line x1="130" y1="4" x2="130" y2="92" stroke="#E4D8BF" stroke-width="1.5"/>
-                    <path d="M 40 8 Q 130 140 220 8" fill="none" stroke="#C1614A" stroke-width="3.5" stroke-linecap="round"/>
-                    <circle cx="130" cy="74" r="4.5" fill="#9B3D5B"/>
-                    <circle cx="83" cy="72" r="4.5" fill="#6E7A45"/>
-                    <circle cx="177" cy="72" r="4.5" fill="#6E7A45"/>
-                </svg>
-                <div class="fc-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C1614A" stroke-width="2.2" stroke-linecap="round"><path d="M4 4v16h16"/><path d="M6 16 Q12 2 18 16" /></svg>
-                </div>
-                <h3>그래프 실험실</h3>
-                <p>a·b·c를 움직이면 포물선이 실시간으로 변합니다. 꼭짓점·판별식·근·최대최소를 즉시 확인하고, 직선과의 위치·이차부등식 해까지 4가지 모드로 탐구하세요.</p>
-                <span class="fc-go">실험하러 가기 →</span>
+        <!-- 두 기둥 (번호 인덱스) -->
+        <section class="pillars">
+            <a href="grapher.html" class="pillar">
+                <span class="num">01</span>
+                <span class="pillar-body">
+                    <h3>그래프 실험실</h3>
+                    <p>a·b·c를 움직이면 포물선이 실시간으로 변합니다. 꼭짓점·판별식·근·최대최소를 즉시 확인하고, 직선과의 위치·이차부등식 해까지 네 가지 모드로 탐구하세요.</p>
+                </span>
+                <span class="arrow">→</span>
             </a>
-
-            <!-- 유형별 퀴즈 -->
-            <a href="quiz.html" class="feature-card">
-                <svg class="mini-graph" viewBox="0 0 260 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-                    <rect x="18" y="20" width="224" height="20" rx="6" fill="#F1E3D5"/>
-                    <rect x="18" y="48" width="224" height="20" rx="6" fill="#E9ECD6"/>
-                    <rect x="18" y="48" width="150" height="20" rx="6" fill="#6E7A45" opacity="0.18"/>
-                    <circle cx="30" cy="30" r="4" fill="#C1614A"/>
-                    <circle cx="30" cy="58" r="4" fill="#6E7A45"/>
-                    <path d="M27 58 l2.5 2.5 L34 55.5" stroke="#6E7A45" stroke-width="2" fill="none" stroke-linecap="round"/>
-                </svg>
-                <div class="fc-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C1614A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-                </div>
-                <h3>유형별 퀴즈</h3>
-                <p>판별식, 직선과의 위치, 최대·최소, 이차부등식, 항상 성립 조건, 연립이차부등식, 근의 위치까지. 8가지 유형에서 문제가 랜덤 출제되어 약한 부분을 콕 집어 연습합니다.</p>
-                <span class="fc-go">문제 풀러 가기 →</span>
+            <a href="quiz.html" class="pillar">
+                <span class="num">02</span>
+                <span class="pillar-body">
+                    <h3>유형별 퀴즈</h3>
+                    <p>판별식·직선과의 위치·최대최소·이차부등식·근의 위치 등 아홉 가지 유형. 오답노트와 그래프 읽기 문제로 약한 부분을 콕 집어 연습합니다.</p>
+                </span>
+                <span class="arrow">→</span>
             </a>
         </section>
 
-        <!-- 유형 미리보기 -->
-        <section class="strip">
-            <h2>다루는 유형</h2>
-            <div class="chips" id="type-chips"></div>
+        <!-- 다루는 유형 -->
+        <section class="types-inline">
+            <span class="ti-label">다루는 유형</span>
+            <p class="ti-list" id="type-chips"></p>
         </section>
     </div>
 
-    <footer>이차함수 배움터 · 그래프로 이해하는 고등 수학</footer>
+    <div class="wrap"><footer>이차함수 배움터 · 그래프로 이해하는 고등 수학</footer></div>
 
     <script src="questions.js"></script>
     <script>
-        /* 랜딩 하단 유형 칩을 questions.js 로부터 자동 생성 */
+        /* 하단 '다루는 유형' 목록을 questions.js 로부터 생성 */
         document.getElementById('type-chips').innerHTML =
-            Q.order.map(id => `<span>${Q.types[id].name}</span>`).join('');
+            Q.order.map(id => Q.types[id].name).join('<span class="sep">/</span>');
     </script>
 </body>
 </html>

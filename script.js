@@ -129,45 +129,48 @@ function drawMiniParabola(canvas, a, b, c) {
 function renderTypes() {
     let html = '';
 
-    // 오답노트 카드 (있을 때만)
+    // 오답노트 배너 (있을 때만)
     const wrong = getWrong();
     if (wrong.length) {
         html += `
-        <div class="type-card wrong" onclick="startQuiz('wrong')">
-            <span class="t-icon">✕</span>
-            <span>
-                <span class="t-name">오답노트</span>
-                <span class="t-desc">틀린 문제만 다시 풀기</span>
-                <span class="t-count">${wrong.length}문제 · <button class="mini-clear" onclick="event.stopPropagation();clearWrong()">비우기</button></span>
+        <button class="type-banner wrong" onclick="startQuiz('wrong')">
+            <span class="tb-star">✕</span>
+            <span class="tb-body">
+                <span class="tb-name">오답노트</span>
+                <span class="tb-desc">틀린 ${wrong.length}문제만 다시 풀기 · <button class="mini-clear" onclick="event.stopPropagation();clearWrong()">비우기</button></span>
             </span>
-        </div>`;
+            <span class="tb-arrow">→</span>
+        </button>`;
     }
 
-    // 전체 랜덤
+    // 전체 랜덤 배너
     const total = Q.order.reduce((s, id) => s + Q.types[id].q.length, 0);
     html += `
-        <div class="type-card all" onclick="startQuiz('all')">
-            <span class="t-icon">★</span>
-            <span>
-                <span class="t-name">전체 랜덤</span>
-                <span class="t-desc">모든 유형에서 골고루 출제</span>
-                <span class="t-count">${total}문제 중 10문제</span>
+        <button class="type-banner" onclick="startQuiz('all')">
+            <span class="tb-star">★</span>
+            <span class="tb-body">
+                <span class="tb-name">전체 랜덤</span>
+                <span class="tb-desc">모든 유형에서 골고루 10문제 · 총 ${total}문제</span>
             </span>
-        </div>`;
+            <span class="tb-arrow">→</span>
+        </button>`;
 
-    // 유형별
-    html += Q.order.map(id => {
+    // 유형 목록 (번호 인덱스)
+    html += '<div class="type-list">';
+    html += Q.order.map((id, i) => {
         const t = Q.types[id];
+        const num = String(i + 1).padStart(2, '0');
         return `
-        <div class="type-card" onclick="startQuiz('${id}')">
-            <span class="t-icon">${t.icon}</span>
-            <span>
-                <span class="t-name">${t.name}</span>
-                <span class="t-desc">${t.desc}</span>
-                <span class="t-count">${t.q.length}문제</span>
+        <button class="type-row" onclick="startQuiz('${id}')">
+            <span class="tr-num">${num}</span>
+            <span class="tr-body">
+                <span class="tr-name">${t.name}</span>
+                <span class="tr-desc">${t.desc} · ${t.q.length}문제</span>
             </span>
-        </div>`;
+            <span class="tr-icon">${t.icon}</span>
+        </button>`;
     }).join('');
+    html += '</div>';
 
     $('type-grid').innerHTML = html;
 }
