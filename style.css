@@ -156,4 +156,19 @@ body {
 
 footer { text-align: center; color: var(--muted); font-size: 13px; padding: 32px 16px; }
 
+/* 그래프 읽기 - 문제 속 미니 그래프 */
+.q-graph { display: block; width: 100%; max-width: 320px; height: 220px; margin: 0 auto 18px;
+    background: #fbfcfe; border-radius: 12px; border: 1px solid var(--line); }
+
+/* 오답노트 카드 */
+.type-card.wrong { border-color: #fecaca; background: #fff5f5; }
+.type-card.wrong .t-icon { background: var(--neg-bg); color: var(--neg); }
+.mini-clear { background: none; border: none; color: var(--muted); text-decoration: underline;
+    cursor: pointer; font-size: 12px; font-family: inherit; padding: 0; }
+.mini-clear:hover { color: var(--neg); }
+
+/* KaTeX 폰트 크기 문제 텍스트에 맞춤 */
+.question-text .katex { font-size: 1.05em; }
+.option-btn .katex { font-size: 1em; }
+
 .hidden { display: none !important; }
