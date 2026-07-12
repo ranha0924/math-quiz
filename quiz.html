@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유형별 퀴즈 · 이차함수 배움터</title>
+    <!-- KaTeX (수식 렌더링) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 상단 네비게이션 -->
+    <nav class="navbar">
+        <div class="wrap">
+            <a href="index.html" class="brand"><span class="logo">∪</span> 이차함수 배움터</a>
+            <div class="nav-links">
+                <a href="grapher.html">그래프 실험실</a>
+                <a href="quiz.html" class="active">유형별 퀴즈</a>
+                <a href="concept.html">개념 정리</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="wrap">
+        <!-- ===== 유형 선택 화면 ===== -->
+        <div id="type-screen">
+            <div class="qhead">
+                <div class="kicker"><span class="rule"></span><span>유형별 퀴즈</span></div>
+                <h1>어떤 유형을 풀어볼까요?</h1>
+                <p>각 유형에서 문제가 랜덤으로 출제됩니다 · 틀린 문제는 오답노트에 모입니다</p>
+            </div>
+            <div id="type-grid"></div>
+        </div>
+
+        <!-- ===== 퀴즈 화면 ===== -->
+        <div id="quiz-screen" class="hidden">
+            <div class="quiz-card">
+                <div class="quiz-header">
+                    <button class="link-btn" onclick="goTypes()">← 유형 선택</button>
+                    <span class="progress" id="progress"><b>1</b> / 8</span>
+                </div>
+                <p class="type-title" id="type-title">판별식과 x축</p>
+                <div class="progress-bar"><div class="fill" id="bar"></div></div>
+
+                <div class="question-box">
+                    <p class="question-cat" id="question-cat">판별식</p>
+                    <canvas id="q-graph" class="q-graph hidden"></canvas>
+                    <p class="question-text" id="question-text"></p>
+                </div>
+                <div class="options" id="options"></div>
+            </div>
+        </div>
+
+        <!-- ===== 결과 화면 ===== -->
+        <div id="result-screen" class="hidden">
+            <div class="quiz-card result-card">
+                <p class="result-score" id="result-score">80%</p>
+                <p class="result-text" id="result-text"></p>
+                <p class="result-message" id="result-message"></p>
+                <div class="result-actions">
+                    <button class="btn btn-primary" onclick="retry()">다시 풀기</button>
+                    <button class="btn btn-ghost" onclick="goTypes()">다른 유형</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>이차함수 배움터 · 그래프로 이해하는 고등 수학</footer>
+
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
