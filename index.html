@@ -3,59 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>수학 공식 암기 퀴즈</title>
-    <!-- 외부 스타일시트 연결 -->
+    <title>이차함수 배움터</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- 메인 컨테이너 -->
-    <div class="container">
-
-        <!-- ========== 학년 선택 화면 ========== -->
-        <div id="selection-screen">
-            <h1>수학 공식 암기 퀴즈</h1>
-            <p class="subtitle">학년을 선택하세요</p>
-
-            <!-- 학년 선택 버튼 -->
-            <div class="grade-selection">
-                <button class="grade-btn high1" onclick="startQuiz('high1')">고등학교 1학년</button>
-                <button class="grade-btn high2" onclick="startQuiz('high2')">고등학교 2학년</button>
-                <button class="grade-btn high3" onclick="startQuiz('high3')">고등학교 3학년</button>
+    <!-- 상단 네비게이션 -->
+    <nav class="navbar">
+        <div class="wrap">
+            <a href="index.html" class="brand"><span class="logo">∪</span> 이차함수 배움터</a>
+            <div class="nav-links">
+                <a href="grapher.html">그래프 실험실</a>
+                <a href="quiz.html">유형별 퀴즈</a>
             </div>
         </div>
+    </nav>
 
-        <!-- ========== 퀴즈 화면 ========== -->
-        <div id="quiz-screen" class="quiz-container">
-            <!-- 상단: 돌아가기 버튼 + 진행률 -->
-            <div class="quiz-header">
-                <button class="back-btn" onclick="goBack()">← 돌아가기</button>
-                <span class="progress" id="progress">1 / 5</span>
-            </div>
+    <div class="wrap">
+        <!-- 히어로 -->
+        <section class="hero">
+            <span class="eyebrow">고1 · 방정식과 부등식</span>
+            <h1><span class="hl">이차함수</span>, 그래프로 보고<br>유형으로 익히다</h1>
+            <p>슬라이더로 포물선을 직접 움직여 판별식·최대최소·이차부등식을 눈으로 이해하고,<br>유형별 퀴즈로 개념을 확실히 다지세요.</p>
+        </section>
 
-            <!-- 현재 학년 표시 -->
-            <p class="grade-title" id="grade-title">고등학교 1학년</p>
+        <!-- 두 기둥 -->
+        <section class="feature-grid">
+            <!-- 그래프 실험실 -->
+            <a href="grapher.html" class="feature-card">
+                <svg class="mini-graph" viewBox="0 0 260 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                    <line x1="0" y1="72" x2="260" y2="72" stroke="#e2e8f0" stroke-width="1.5"/>
+                    <line x1="130" y1="4" x2="130" y2="92" stroke="#e2e8f0" stroke-width="1.5"/>
+                    <path d="M 40 8 Q 130 140 220 8" fill="none" stroke="#4f46e5" stroke-width="3.5" stroke-linecap="round"/>
+                    <circle cx="130" cy="74" r="4.5" fill="#e11d48"/>
+                    <circle cx="83" cy="72" r="4.5" fill="#0891b2"/>
+                    <circle cx="177" cy="72" r="4.5" fill="#0891b2"/>
+                </svg>
+                <div class="fc-icon">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round"><path d="M4 4v16h16"/><path d="M6 16 Q12 2 18 16" /></svg>
+                </div>
+                <h3>그래프 실험실</h3>
+                <p>a·b·c를 움직이면 포물선이 실시간으로 변합니다. 꼭짓점·판별식·근·최대최소를 즉시 확인하고, 직선과의 위치·이차부등식 해까지 4가지 모드로 탐구하세요.</p>
+                <span class="fc-go">실험하러 가기 →</span>
+            </a>
 
-            <!-- 문제 박스 -->
-            <div class="question-box">
-                <p class="question-title" id="question-title">곱셈공식</p>
-                <p class="question-text" id="question-text">(a + b)² = ?</p>
-            </div>
+            <!-- 유형별 퀴즈 -->
+            <a href="quiz.html" class="feature-card">
+                <svg class="mini-graph" viewBox="0 0 260 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                    <rect x="18" y="20" width="224" height="20" rx="6" fill="#eef2ff"/>
+                    <rect x="18" y="48" width="224" height="20" rx="6" fill="#dcfce7"/>
+                    <rect x="18" y="48" width="150" height="20" rx="6" fill="#16a34a" opacity="0.18"/>
+                    <circle cx="30" cy="30" r="4" fill="#4f46e5"/>
+                    <circle cx="30" cy="58" r="4" fill="#16a34a"/>
+                    <path d="M27 58 l2.5 2.5 L34 55.5" stroke="#16a34a" stroke-width="2" fill="none" stroke-linecap="round"/>
+                </svg>
+                <div class="fc-icon">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                </div>
+                <h3>유형별 퀴즈</h3>
+                <p>판별식, 직선과의 위치, 최대·최소, 이차부등식, 항상 성립 조건, 연립이차부등식, 근의 위치까지. 8가지 유형에서 문제가 랜덤 출제되어 약한 부분을 콕 집어 연습합니다.</p>
+                <span class="fc-go">문제 풀러 가기 →</span>
+            </a>
+        </section>
 
-            <!-- 객관식 선택지 (JS에서 동적 생성) -->
-            <div class="options" id="options"></div>
-        </div>
-
-        <!-- ========== 결과 화면 ========== -->
-        <div id="result-screen" class="result-container">
-            <p class="result-score" id="result-score">80%</p>
-            <p class="result-text" id="result-text">5문제 중 4문제 정답!</p>
-            <p class="result-message" id="result-message">잘했어요!</p>
-            <button class="restart-btn" onclick="goBack()">다시 시작하기</button>
-        </div>
-
+        <!-- 유형 미리보기 -->
+        <section class="strip">
+            <h2>다루는 유형</h2>
+            <div class="chips" id="type-chips"></div>
+        </section>
     </div>
 
+    <footer>이차함수 배움터 · 그래프로 이해하는 고등 수학</footer>
+
     <script src="questions.js"></script>
-    <script src="script.js"></script>
+    <script>
+        /* 랜딩 하단 유형 칩을 questions.js 로부터 자동 생성 */
+        document.getElementById('type-chips').innerHTML =
+            Q.order.map(id => `<span>${Q.types[id].name}</span>`).join('');
+    </script>
 </body>
 </html>

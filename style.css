@@ -1,257 +1,159 @@
-/* ========================================
-   수학 공식 암기 퀴즈 - 스타일시트
-   ======================================== */
+/* ============================================================
+   이차함수 배움터 - 공용 스타일 (랜딩 · 퀴즈)
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* --- 기본 리셋 --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+    --bg1: #eef2f8; --bg2: #e4e9f5;
+    --card: #ffffff; --ink: #1e293b; --muted: #64748b; --line: #e2e8f0;
+    --accent: #4f46e5; --accent-2: #6366f1; --accent-soft: #eef2ff;
+    --pos: #16a34a; --pos-bg: #dcfce7;
+    --neg: #e11d48; --neg-bg: #ffe4e6;
 }
 
-/* --- 페이지 전체 배경 --- */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #e0e0e0 0%, #c0c0c0 100%); /* 연한 회색 그라데이션 */
+    font-family: system-ui, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    background: linear-gradient(160deg, var(--bg1) 0%, var(--bg2) 100%);
+    color: var(--ink);
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
 }
 
-/* --- 메인 컨테이너 (흰색 카드) --- */
-.container {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 40px;
-    max-width: 650px;
-    width: 100%;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15); /* 연한 그림자 */
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+
+/* ============================================================
+   상단 네비게이션 (전 페이지 공용)
+   ============================================================ */
+.navbar {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 10;
 }
-
-/* --- 제목 스타일 --- */
-h1 {
-    text-align: center;
-    color: #444;
-    margin-bottom: 30px;
-    font-size: 28px;
+.navbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+.brand { font-weight: 800; font-size: 18px; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.brand .logo {
+    width: 30px; height: 30px; border-radius: 8px; background: var(--accent); color: #fff;
+    display: grid; place-items: center; font-size: 18px; font-family: Georgia, serif;
 }
-
-/* --- 부제목 (학년 선택하세요) --- */
-.subtitle {
-    text-align: center;
-    color: #888;
-    margin-bottom: 30px;
+.nav-links { display: flex; gap: 6px; }
+.nav-links a {
+    text-decoration: none; color: var(--muted); font-weight: 600; font-size: 14px;
+    padding: 8px 14px; border-radius: 999px; transition: all .15s ease;
 }
+.nav-links a:hover { color: var(--accent); background: var(--accent-soft); }
+.nav-links a.active { color: #fff; background: var(--accent); }
 
-/* ========================================
-   학년 선택 버튼 영역
-   ======================================== */
-
-/* 버튼 세로 정렬 */
-.grade-selection {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
+/* ============================================================
+   랜딩 - 히어로
+   ============================================================ */
+.hero { text-align: center; padding: 56px 16px 40px; }
+.hero .eyebrow {
+    display: inline-block; padding: 5px 14px; background: var(--accent); color: #fff;
+    border-radius: 999px; font-size: 12.5px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 18px;
 }
+.hero h1 { font-size: 38px; letter-spacing: -1px; line-height: 1.2; }
+.hero h1 .hl { color: var(--accent); }
+.hero p { color: var(--muted); font-size: 16px; margin-top: 16px; line-height: 1.6; }
 
-/* 학년 선택 버튼 공통 스타일 */
-.grade-btn {
-    padding: 20px;
-    font-size: 18px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease; /* 호버 애니메이션 */
-    font-weight: bold;
-    color: white;
+/* 랜딩 - 두 기둥 카드 */
+.feature-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding-bottom: 24px; }
+@media (min-width: 760px) { .feature-grid { grid-template-columns: 1fr 1fr; } }
+
+.feature-card {
+    background: var(--card); border-radius: 20px; padding: 28px; text-decoration: none; color: var(--ink);
+    box-shadow: 0 8px 30px rgba(30, 41, 59, 0.08); border: 1px solid transparent;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    display: flex; flex-direction: column;
 }
+.feature-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(79, 70, 229, 0.18); border-color: var(--accent); }
+.feature-card .fc-icon { width: 52px; height: 52px; border-radius: 14px; background: var(--accent-soft); display: grid; place-items: center; margin-bottom: 16px; }
+.feature-card h3 { font-size: 21px; margin-bottom: 8px; }
+.feature-card p { color: var(--muted); font-size: 14px; line-height: 1.6; flex: 1; }
+.feature-card .fc-go { margin-top: 18px; color: var(--accent); font-weight: 700; font-size: 14px; }
 
-/* 버튼 호버 효과 */
-.grade-btn:hover {
-    transform: translateY(-3px); /* 위로 살짝 올라감 */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+.mini-graph { width: 100%; height: 96px; margin-bottom: 16px; }
+
+/* 랜딩 - 유형 미리보기 스트립 */
+.strip { padding: 8px 0 56px; }
+.strip h2 { font-size: 15px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 14px; text-align: center; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.chips span { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; font-size: 13.5px; font-weight: 600; color: var(--ink); }
+
+/* ============================================================
+   퀴즈 - 유형 선택
+   ============================================================ */
+.page-head { text-align: center; padding: 40px 16px 24px; }
+.page-head h1 { font-size: 30px; letter-spacing: -0.5px; }
+.page-head p { color: var(--muted); margin-top: 10px; }
+
+.type-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; padding-bottom: 24px; }
+.type-card {
+    background: var(--card); border-radius: 16px; padding: 20px; cursor: pointer; text-align: left;
+    border: 1px solid var(--line); box-shadow: 0 6px 20px rgba(30, 41, 59, 0.06);
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    display: flex; gap: 14px; align-items: flex-start; font-family: inherit;
 }
+.type-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(79, 70, 229, 0.15); border-color: var(--accent); }
+.type-card .t-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--accent-soft); color: var(--accent);
+    display: grid; place-items: center; font-size: 20px; font-weight: 800; font-family: Georgia, serif; flex-shrink: 0; }
+.type-card .t-name { font-size: 16.5px; font-weight: 700; }
+.type-card .t-desc { font-size: 13px; color: var(--muted); margin-top: 3px; }
+.type-card .t-count { font-size: 12px; color: var(--accent); font-weight: 700; margin-top: 8px; }
 
-/* 각 학년별 버튼 색상 (연한 회색 톤) */
-.grade-btn.high1 {
-    background: linear-gradient(135deg, #9e9e9e, #bdbdbd);
+.type-card.all { background: linear-gradient(135deg, var(--accent), var(--accent-2)); border: none; }
+.type-card.all .t-icon { background: rgba(255,255,255,0.2); color: #fff; }
+.type-card.all .t-name, .type-card.all .t-desc, .type-card.all .t-count { color: #fff; }
+.type-card.all .t-desc { color: rgba(255,255,255,0.85); }
+
+/* ============================================================
+   퀴즈 - 문제 풀이
+   ============================================================ */
+.quiz-card {
+    background: var(--card); border-radius: 20px; padding: 28px; max-width: 640px; margin: 32px auto;
+    box-shadow: 0 10px 40px rgba(30, 41, 59, 0.10);
 }
+.quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.link-btn { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 14px; font-weight: 600; font-family: inherit; padding: 6px 0; }
+.link-btn:hover { color: var(--accent); }
+.progress { font-size: 14px; color: var(--muted); font-weight: 700; }
+.progress b { color: var(--accent); }
 
-.grade-btn.high2 {
-    background: linear-gradient(135deg, #7e7e7e, #9e9e9e);
-}
+.type-title { text-align: center; font-size: 15px; color: var(--accent); font-weight: 700; margin-bottom: 18px; }
 
-.grade-btn.high3 {
-    background: linear-gradient(135deg, #6e6e6e, #8e8e8e);
-}
+.progress-bar { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; margin-bottom: 22px; }
+.progress-bar .fill { height: 100%; background: var(--accent); border-radius: 999px; transition: width .3s ease; width: 0; }
 
-/* ========================================
-   퀴즈 화면
-   ======================================== */
+.question-box { background: #f8fafc; border-radius: 15px; padding: 28px 24px; margin-bottom: 22px; text-align: center; }
+.question-cat { font-size: 12.5px; color: var(--accent); font-weight: 700; margin-bottom: 12px; }
+.question-text { font-size: 20px; color: var(--ink); line-height: 1.6; word-break: keep-all; }
 
-/* 퀴즈 컨테이너 (초기에는 숨김) */
-.quiz-container {
-    display: none;
-}
-
-/* 퀴즈 헤더 (돌아가기 버튼 + 진행률) */
-.quiz-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-/* 돌아가기 버튼 */
-.back-btn {
-    background: #a0a0a0;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.back-btn:hover {
-    background: #888;
-}
-
-/* 진행률 표시 (1/5 등) */
-.progress {
-    font-size: 16px;
-    color: #777;
-    font-weight: bold;
-}
-
-/* 현재 학년 표시 */
-.grade-title {
-    text-align: center;
-    font-size: 20px;
-    color: #666;
-    margin-bottom: 5px;
-}
-
-/* 문제 박스 */
-.question-box {
-    background: #f9f9f9;
-    border-radius: 15px;
-    padding: 30px;
-    margin-bottom: 25px;
-    text-align: center;
-}
-
-/* 문제 카테고리 (곱셈공식 등) */
-.question-title {
-    font-size: 14px;
-    color: #999;
-    margin-bottom: 15px;
-}
-
-/* 문제 텍스트 */
-.question-text {
-    font-size: 20px;
-    color: #333;
-    line-height: 1.6;
-}
-
-/* ========================================
-   객관식 선택지 버튼
-   ======================================== */
-
-/* 선택지 컨테이너 */
-.options {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-/* 선택지 버튼 기본 스타일 */
+.options { display: flex; flex-direction: column; gap: 11px; }
 .option-btn {
-    padding: 18px 25px;
-    font-size: 16px;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    background: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: left;
+    padding: 16px 22px; font-size: 16px; border: 2px solid var(--line); border-radius: 12px;
+    background: #fff; cursor: pointer; transition: all .15s ease; text-align: left; font-family: inherit; color: var(--ink);
 }
+.option-btn:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
+.option-btn.correct { border-color: var(--pos); background: var(--pos-bg); color: #166534; font-weight: 700; }
+.option-btn.wrong { border-color: var(--neg); background: var(--neg-bg); color: #9f1239; }
+.option-btn:disabled { cursor: default; }
 
-/* 선택지 호버 효과 */
-.option-btn:hover {
-    border-color: #888;
-    background: #f5f5f5;
+/* ============================================================
+   퀴즈 - 결과
+   ============================================================ */
+.result-card { text-align: center; }
+.result-score { font-size: 68px; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+.result-text { font-size: 20px; color: var(--ink); margin-bottom: 6px; }
+.result-message { font-size: 16px; color: var(--muted); margin-bottom: 28px; }
+.result-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn {
+    border: none; padding: 14px 28px; font-size: 16px; border-radius: 12px; cursor: pointer; font-weight: 700;
+    font-family: inherit; transition: transform .15s ease, box-shadow .15s ease; text-decoration: none; display: inline-block;
 }
+.btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3); }
+.btn-ghost { background: #fff; color: var(--ink); border: 1px solid var(--line); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-/* 정답 선택시 (초록색) */
-.option-btn.correct {
-    border-color: #4caf50;
-    background: #e8f5e9;
-    color: #2e7d32;
-    font-weight: bold;
-}
+footer { text-align: center; color: var(--muted); font-size: 13px; padding: 32px 16px; }
 
-/* 오답 선택시 (빨간색) */
-.option-btn.wrong {
-    border-color: #f44336;
-    background: #ffebee;
-    color: #c62828;
-}
-
-/* 선택 후 버튼 비활성화 */
-.option-btn:disabled {
-    cursor: not-allowed;
-}
-
-/* ========================================
-   결과 화면
-   ======================================== */
-
-/* 결과 컨테이너 (초기에는 숨김) */
-.result-container {
-    display: none;
-    text-align: center;
-}
-
-/* 점수 표시 (큰 숫자) */
-.result-score {
-    font-size: 72px;
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 10px;
-}
-
-/* 결과 텍스트 (5문제 중 4문제 정답) */
-.result-text {
-    font-size: 24px;
-    color: #444;
-    margin-bottom: 30px;
-}
-
-/* 결과 메시지 (잘했어요 등) */
-.result-message {
-    font-size: 18px;
-    color: #777;
-    margin-bottom: 30px;
-}
-
-/* 다시 시작하기 버튼 */
-.restart-btn {
-    background: linear-gradient(135deg, #8e8e8e, #6e6e6e);
-    color: white;
-    border: none;
-    padding: 15px 40px;
-    font-size: 18px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.restart-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
+.hidden { display: none !important; }

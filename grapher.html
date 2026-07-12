@@ -15,9 +15,22 @@
     body {
         font-family: system-ui, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
         background: linear-gradient(160deg, #eef2f8 0%, #e4e9f5 100%);
-        color: var(--ink); min-height: 100vh; padding: 24px 16px 48px;
+        color: var(--ink); min-height: 100vh; padding: 0 0 48px;
     }
-    .wrap { max-width: 1040px; margin: 0 auto; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+
+    /* 상단 네비게이션 (사이트 공용) */
+    .navbar { background: rgba(255,255,255,0.8); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+        position: sticky; top: 0; z-index: 10; margin-bottom: 24px; }
+    .navbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .brand { font-weight: 800; font-size: 18px; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .brand .logo { width: 30px; height: 30px; border-radius: 8px; background: var(--accent); color: #fff;
+        display: grid; place-items: center; font-size: 18px; font-family: Georgia, serif; }
+    .nav-links { display: flex; gap: 6px; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 14px;
+        padding: 8px 14px; border-radius: 999px; transition: all .15s ease; }
+    .nav-links a:hover { color: var(--accent); background: #eef2ff; }
+    .nav-links a.active { color: #fff; background: var(--accent); }
 
     header { text-align: center; margin-bottom: 18px; }
     header h1 { font-size: 26px; letter-spacing: -0.5px; }
@@ -99,9 +112,18 @@
 </style>
 </head>
 <body>
+<nav class="navbar">
+    <div class="wrap">
+        <a href="index.html" class="brand"><span class="logo">∪</span> 이차함수 배움터</a>
+        <div class="nav-links">
+            <a href="grapher.html" class="active">그래프 실험실</a>
+            <a href="quiz.html">유형별 퀴즈</a>
+        </div>
+    </div>
+</nav>
 <div class="wrap">
     <header>
-        <span class="tag">이차함수 사이트 · 프로토타입</span>
+        <span class="tag">인터랙티브 그래프</span>
         <h1>이차함수 그래프 실험실</h1>
         <p><b>y = ax² + bx + c</b> 를 슬라이더로 움직이며 그래프를 탐구해 보세요.</p>
     </header>
@@ -189,7 +211,7 @@
         </div>
     </div>
 
-    <footer>이차함수 사이트 개편 프로토타입 · 4가지 모드(기본 · 직선과의 위치 · 최대·최소 · 이차부등식)</footer>
+    <footer>이차함수 배움터 · 4가지 모드(기본 · 직선과의 위치 · 최대·최소 · 이차부등식)</footer>
 </div>
 
 <script>
