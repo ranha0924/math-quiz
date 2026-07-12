@@ -25,6 +25,18 @@ body::before {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
+/* 홈화면 - 손으로 뜬 종이 질감 (미세 결 + 은은한 섬유 얼룩) */
+body.home {
+    background-color: #EFE5CE;
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170'%3E%3Cfilter id='pg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.16' intercept='0.84'/%3E%3CfeFuncG type='linear' slope='0.16' intercept='0.84'/%3E%3CfeFuncB type='linear' slope='0.16' intercept='0.84'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pg)'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='480'%3E%3Cfilter id='pm'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.13' intercept='0.87'/%3E%3CfeFuncG type='linear' slope='0.13' intercept='0.87'/%3E%3CfeFuncB type='linear' slope='0.13' intercept='0.87'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pm)'/%3E%3C/svg%3E"),
+        linear-gradient(165deg, #F4EDDD 0%, #ECE1CB 100%);
+    background-size: 170px 170px, 480px 480px, cover;
+    background-blend-mode: multiply, multiply, normal;
+}
+body.home::before { display: none; }   /* 기본 미세 노이즈는 끔 (질감 이중 적용 방지) */
+
 .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
 @media (max-width: 560px) { .wrap { padding: 0 20px; } }
 
